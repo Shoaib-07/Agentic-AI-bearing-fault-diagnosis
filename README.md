@@ -82,5 +82,5 @@ This is a research prototype developed for bearing fault diagnosis. Root-cause e
 
 ## Author
 
-**Md. Shoaib Ali**
+**Md Shoaib Ali**
 
