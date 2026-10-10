@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.1",
+  "domain": "rolling_element_bearing_fault_diagnosis",
+  "nodes": [
+    {"id":"bearing","type":"equipment","label":"Rolling Element Bearing"},
+    {"id":"vibration","type":"sensor_evidence","label":"Vibration Signal"},
+    {"id":"ml","type":"diagnostic_method","label":"LightGBM"},
+    {"id":"physics","type":"diagnostic_method","label":"Bearing Physics"},
+    {"id":"bpfi","type":"feature","label":"BPFI-related Energy"},
+    {"id":"bpfo","type":"feature","label":"BPFO-related Energy"},
+    {"id":"inner_race","type":"fault_location","label":"Inner Race"},
+    {"id":"outer_race","type":"fault_location","label":"Outer Race"},
+    {"id":"no_confirmed_fault","type":"state","label":"No Confirmed Fault"},
+    {"id":"impact_excitation","type":"mechanism","label":"Localized impact excitation"},
+    {"id":"surface_damage","type":"mechanism","label":"Raceway/contact-surface damage"},
+    {"id":"lubrication","type":"possible_cause","label":"Lubrication / contamination"},
+    {"id":"alignment","type":"possible_cause","label":"Alignment / installation"},
+    {"id":"load","type":"possible_cause","label":"Operating load / stress"},
+    {"id":"inspection","type":"operator_action","label":"Maintenance inspection"}
+  ],
+  "edges": [
+    {"source":"vibration","target":"ml","relation":"analyzed_by"},
+    {"source":"vibration","target":"physics","relation":"analyzed_by"},
+    {"source":"physics","target":"bpfi","relation":"measures"},
+    {"source":"physics","target":"bpfo","relation":"measures"},
+    {"source":"bpfi","target":"inner_race","relation":"supports_fault_location"},
+    {"source":"bpfo","target":"outer_race","relation":"supports_fault_location"},
+    {"source":"inner_race","target":"impact_excitation","relation":"associated_mechanism"},
+    {"source":"outer_race","target":"surface_damage","relation":"associated_mechanism"},
+    {"source":"impact_excitation","target":"lubrication","relation":"may_be_related_to"},
+    {"source":"impact_excitation","target":"load","relation":"may_be_related_to"},
+    {"source":"surface_damage","target":"lubrication","relation":"may_be_related_to"},
+    {"source":"surface_damage","target":"alignment","relation":"may_be_related_to"},
+    {"source":"inner_race","target":"inspection","relation":"requires_operator_check"},
+    {"source":"outer_race","target":"inspection","relation":"requires_operator_check"}
+  ]
+}
